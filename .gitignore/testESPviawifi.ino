@@ -9,20 +9,13 @@
                                                    //            desses tópicos. Caso contrário, há¡ grandes
                                                    //            chances de você controlar e monitorar o NodeMCU
                                                    //            de outra pessoa.
-#define ID_MQTT  "kaueTeste"     //id mqtt (para identificação de sessão)
+#define ID_MQTT  "Teste"     //id mqtt (para identificação de sessão)
                                //IMPORTANTE: este deve ser Único no broker (ou seja, 
                                //            se um client MQTT tentar entrar com o mesmo 
                                //            id de outro já¡ conectado ao broker, o broker 
                                //            irá fechar a conexão de um deles).
 
 
-/*/ --- Range de Umidade do Solo ---
-#define    L1        0
-#define    L2        1000
-#define    L3        2000
-#define    L4        3000
-#define    L5        4085
-*/
 //defines - mapeamento de pinos do NodeMCU
 #define D0    16
 #define D1    5
@@ -37,8 +30,8 @@
 #define D9    3
 #define D10   1
 // WIFI
-const char* SSID = "kaue"; // SSID / nome da rede WI-FI que deseja se conectar
-const char* PASSWORD = "c0o3lh1nho_$"; // Senha da rede WI-FI que deseja se conectar
+const char* SSID = "Nome-wifi"; // SSID / nome da rede WI-FI que deseja se conectar
+const char* PASSWORD = "Senha"; // Senha da rede WI-FI que deseja se conectar
  
 // MQTT
 const char* BROKER_MQTT = "iot.eclipse.org"; //URL do broker MQTT que se deseja utilizar
@@ -51,21 +44,6 @@ PubSubClient MQTT(espClient); // Instancia o Cliente MQTT passando o objeto espC
 char EstadoSaida = '0';  //variável que armazena o estado atual da saída
 
 
-//#####################
-//ESTADO ATUAL QUE ARMAZENA O SENSOR DE UMIDADE DO SOLO
-
-
-//CONTANDO QUANTAS VEZES O SENSOR FOI ATIVADO
-
-
-//#####################
-
-
-//Prototypes
-//void inicializaSensorUmidadeTemperaturaDoAr();
-//void loopSensorUmidadeTemperaturaDoSolo();
-//void configuracoesIniciaisSensorUmidadeSolo();
-//float read_humidity(void);
 void initSerial();
 void initWiFi();
 void initMQTT();
@@ -75,7 +53,7 @@ void VerificaConexoesWiFIEMQTT(void);
 void InitOutput(void);
 
 /* 
- *  ImplementaÃ§ões das funÃ§ões
+ *  Implementação das funções
  */
 void setup() 
 {
@@ -154,18 +132,6 @@ void mqtt_callback(char* topic, byte* payload, unsigned int length)
         digitalWrite(LED_BUILTIN, HIGH);
         EstadoSaida = '0';
     }
-//#######################
-//TESTE SENSOR
-/*  if(msg.equals("S"){
-      digitalRead(13,INPUT);
-      estadoSaidaSensorTeste = '1';
-  }
-  
-  if(msg.equals("F"){
-      digitalRead(13,INPUT);
-      estadoSaidaSensorTeste = '0';
-  }*/
-//#######################
 }
  
 //Funçãoo: reconecta-se ao broker MQTT (caso ainda nâo esteja conectado ou em caso de a conexâo cair)
@@ -243,14 +209,8 @@ void EnviaEstadoOutputMQTT(void)
       
   Serial.println("enviado estado output");
 }
-//#################
-//TESTE SENSOR
-   
-     
 
-//#################
-   // Serial.println("- Estado da saida D2 enviado ao broker!");
-//    delay(1000);
+     
 
 //Funçãoo: inicializa o output em nível lógico baixo
 //Parâmetros: nenhum
@@ -261,11 +221,6 @@ void InitOutput(void)
     //enviar HIGH para o output faz o Led apagar / enviar LOW faz o Led acender)
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, LOW);          
-
-    //#######################
-    //INICIANDO SENSOR TESTE
-      //digitalWrite(13,LOW);    
-    //#######################
 }
 
 
